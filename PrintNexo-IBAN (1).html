@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrintNexo – Dein Design. Dein Shop. Dein Erfolg.</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><polygon points='18,2 30,9 30,23 18,30 6,23 6,9' fill='%23FF4D1C' opacity='0.2'/><polygon points='18,5 27,10.5 27,21.5 18,27 9,21.5 9,10.5' fill='none' stroke='%23FF4D1C' stroke-width='1.5'/><text x='18' y='22' text-anchor='middle' font-family='Georgia' font-size='14' font-weight='900' fill='%23FF4D1C'>P</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,100;0,700;0,900;1,700&display=swap');
+:root {
+  --ink:#0D0D0F;--paper:#F7F5F0;--accent:#FF4D1C;--accent2:#1C3BFF;
+  --mid:#6B6869;--card:#FFFFFF;--border:#E2DFD8;--success:#0DBD70;
+  --warning:#F59E0B;--purple:#7C3AED;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;background:rgba(247,245,240,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.4rem;cursor:pointer;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:1.5rem;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--ink);font-size:.875rem;font-weight:500;transition:color .2s;cursor:pointer;}
+.nav-links a:hover{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:.75rem;}
+.cart-btn{position:relative;background:none;border:none;font-size:1.3rem;cursor:pointer;padding:.4rem;}
+.cart-badge{position:absolute;top:0;right:0;background:var(--accent);color:white;font-size:.6rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.4rem;border-radius:6px;font-family:'Space Grotesk',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none;}
+.btn-ghost{background:transparent;border:1.5px solid var(--ink);color:var(--ink);}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);}
+.btn-primary{background:var(--accent);color:white;}
+.btn-primary:hover{background:#e03d0d;transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,77,28,.35);}
+.btn-blue{background:var(--accent2);color:white;}
+.btn-blue:hover{background:#1330d4;transform:translateY(-1px);}
+.btn-green{background:var(--success);color:white;}
+.btn-green:hover{background:#09a85e;}
+.btn-purple{background:var(--purple);color:white;}
+.btn-purple:hover{background:#6d28d9;}
+.btn-lg{padding:.85rem 2rem;font-size:1rem;border-radius:8px;}
+.btn-xl{padding:1rem 2.4rem;font-size:1.05rem;border-radius:8px;}
+.btn-sm{padding:.4rem .9rem;font-size:.8rem;}
+.btn-block{width:100%;justify-content:center;}
+
+/* PAGES */
+.page{display:none;padding-top:64px;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:80px 4rem 4rem;gap:4rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(255,77,28,.1) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:var(--ink);color:var(--paper);font-size:.78rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.4rem 1rem;border-radius:100px;margin-bottom:1.5rem;}
+.hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:1.5rem;}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{font-size:1.1rem;color:var(--mid);line-height:1.7;margin-bottom:2.5rem;max-width:480px;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:2rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+.stat-num{font-family:'Fraunces',serif;font-size:2rem;font-weight:700;display:block;}
+.stat-lbl{font-size:.8rem;color:var(--mid);}
+
+/* Hero Visual */
+.hero-visual{position:relative;}
+.designer-mock{background:var(--ink);border-radius:16px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.35);}
+.mock-topbar{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;background:#1a1a1e;border-bottom:1px solid #2a2a30;}
+.mock-dot{width:10px;height:10px;border-radius:50%;}
+.mock-canvas-area{padding:1.5rem;display:flex;gap:1rem;min-height:260px;}
+.mock-sidebar{width:60px;display:flex;flex-direction:column;gap:.75rem;align-items:center;padding-top:.5rem;}
+.tool-btn-mock{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;}
+.tool-btn-mock.active{background:var(--accent);}
+.tool-btn-mock:not(.active){background:#2a2a30;}
+.mock-stage{flex:1;background:#F7F5F0;border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;}
+.tshirt-body{width:140px;height:160px;background:#2563eb;clip-path:polygon(20% 0%,80% 0%,100% 20%,85% 22%,85% 100%,15% 100%,15% 22%,0% 20%);display:flex;align-items:center;justify-content:center;}
+.design-on-shirt{text-align:center;margin-top:20px;font-family:'Fraunces',serif;font-size:.9rem;font-weight:900;color:white;line-height:1.1;}
+.mock-props{width:130px;display:flex;flex-direction:column;gap:.75rem;}
+.prop-label{font-size:.65rem;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
+.color-swatch-row{display:flex;gap:4px;}
+.swatch{width:20px;height:20px;border-radius:4px;cursor:pointer;}
+.swatch.active{outline:2px solid white;outline-offset:2px;}
+.prop-select{background:#2a2a30;border:1px solid #3a3a40;color:white;padding:4px 8px;border-radius:6px;font-size:.72rem;width:100%;}
+.floating-badge{position:absolute;bottom:-12px;right:-12px;background:var(--success);color:white;font-size:.75rem;font-weight:700;padding:.5rem .9rem;border-radius:100px;box-shadow:0 4px 16px rgba(13,189,112,.4);animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* SECTIONS */
+section.content-section{padding:5rem 4rem;}
+.section-eyebrow{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:1rem;}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:900;line-height:1.15;margin-bottom:1.2rem;}
+.section-sub{font-size:1.05rem;color:var(--mid);line-height:1.7;max-width:560px;}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:all .25s;position:relative;overflow:hidden;}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.1);}
+.feature-card::before{content:attr(data-num);position:absolute;top:1.5rem;right:1.5rem;font-family:'Fraunces',serif;font-size:4rem;font-weight:900;color:var(--border);line-height:1;}
+.feature-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;}
+.icon-red{background:rgba(255,77,28,.12);}
+.icon-blue{background:rgba(28,59,255,.12);}
+.icon-green{background:rgba(13,189,112,.12);}
+.icon-purple{background:rgba(147,51,234,.12);}
+.icon-orange{background:rgba(251,146,60,.12);}
+.icon-teal{background:rgba(20,184,166,.12);}
+.feature-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.6rem;}
+.feature-card p{font-size:.9rem;color:var(--mid);line-height:1.6;}
+
+/* CATEGORIES */
+.categories-section{background:var(--ink);color:var(--paper);padding:5rem 4rem;}
+.categories-section .section-title{color:var(--paper);}
+.categories-section .section-sub{color:#9a9998;}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem;}
+.cat-card{border:1px solid #2a2a2e;border-radius:12px;padding:1.5rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;background:#16161a;}
+.cat-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.cat-emoji{font-size:2rem;margin-bottom:.75rem;display:block;}
+.cat-card h4{font-size:.95rem;font-weight:600;color:var(--paper);margin-bottom:.3rem;}
+.cat-card p{font-size:.8rem;color:#666;}
+.cat-count{position:absolute;top:1rem;right:1rem;background:#2a2a2e;font-size:.7rem;color:#888;padding:.2rem .5rem;border-radius:100px;}
+
+/* MARKTPLATZ PAGE */
+.marketplace-page{padding:5rem 4rem 3rem;}
+.mp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.mp-filters{display:flex;gap:.6rem;flex-wrap:wrap;}
+.filter-chip{padding:.4rem 1rem;border-radius:100px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:white;transition:all .2s;}
+.filter-chip.active{background:var(--ink);color:white;border-color:var(--ink);}
+.filter-chip:hover:not(.active){border-color:var(--ink);}
+.mp-search{display:flex;gap:.75rem;margin-bottom:2rem;}
+.mp-search input{flex:1;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:'Space Grotesk',sans-serif;font-size:.9rem;outline:none;}
+.mp-search input:focus{border-color:var(--accent2);}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;}
+.product-card{background:white;border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.12);}
+.product-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;}
+.product-badge{position:absolute;top:.75rem;left:.75rem;background:var(--accent);color:white;font-size:.68rem;font-weight:700;padding:.2rem .5rem;border-radius:4px;}
+.product-info{padding:1rem;}
+.product-creator{font-size:.72rem;color:var(--mid);margin-bottom:.3rem;}
+.product-name{font-weight:600;font-size:.9rem;margin-bottom:.4rem;}
+.product-price{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;}
+.product-stars{color:#f59e0b;font-size:.75rem;margin-top:.3rem;}
+.product-actions{padding:.75rem 1rem;border-top:1px solid var(--border);display:flex;gap:.5rem;}
+
+/* WARENKORB SIDEBAR */
+.cart-overlay{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.5);display:none;}
+.cart-overlay.open{display:block;}
+.cart-sidebar{position:fixed;top:0;right:0;bottom:0;width:420px;background:white;z-index:301;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+.cart-sidebar.open{transform:translateX(0);}
+.cart-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cart-header h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;}
+.cart-close{background:none;border:none;font-size:1.3rem;cursor:pointer;}
+.cart-items{flex:1;overflow-y:auto;padding:1rem;}
+.cart-item{display:flex;gap:1rem;padding:1rem;border:1px solid var(--border);border-radius:10px;margin-bottom:.75rem;align-items:center;}
+.cart-item-img{width:64px;height:64px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-weight:600;font-size:.9rem;margin-bottom:.2rem;}
+.cart-item-price{font-family:'Fraunces',serif;font-weight:700;color:var(--accent);}
+.cart-item-qty{display:flex;align-items:center;gap:.5rem;margin-top:.4rem;}
+.qty-btn{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border);background:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;}
+.qty-btn:hover{background:var(--paper);}
+.cart-item-remove{background:none;border:none;color:#ccc;cursor:pointer;font-size:1rem;}
+.cart-item-remove:hover{color:var(--accent);}
+.cart-footer{padding:1.5rem;border-top:1px solid var(--border);}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:.5rem;font-size:.9rem;}
+.cart-total-row.big{font-size:1.1rem;font-weight:700;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border);}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--mid);}
+.cart-empty-icon{font-size:3rem;display:block;margin-bottom:1rem;}
+
+/* CHECKOUT */
+.checkout-page{padding:5rem 4rem 3rem;}
+.checkout-grid{display:grid;grid-template-columns:1fr 400px;gap:3rem;max-width:1100px;margin:0 auto;}
+.checkout-steps{display:flex;gap:0;margin-bottom:2rem;}
+.step{flex:1;text-align:center;padding:.75rem;font-size:.82rem;font-weight:600;border-bottom:3px solid var(--border);color:var(--mid);}
+.step.active{border-color:var(--accent2);color:var(--accent2);}
+.step.done{border-color:var(--success);color:var(--success);}
+.checkout-form h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;margin-bottom:1.5rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-field{margin-bottom:1rem;}
+.form-field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:.35rem;}
+.form-field input,.form-field select{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:'Space Grotesk',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;}
+.form-field input:focus,.form-field select:focus{border-color:var(--accent2);}
+.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.5rem;}
+.pay-method{border:1.5px solid var(--border);border-radius:10px;padding:1rem;text-align:center;cursor:pointer;transition:all .2s;}
+.pay-method:hover,.pay-method.selected{border-color:var(--accent2);background:#f0f4ff;}
+.pay-method .pay-icon{font-size:1.8rem;display:block;margin-bottom:.3rem;}
+.pay-method .pay-name{font-size:.78rem;font-weight:600;}
+.order-summary-card{background:var(--paper);border-radius:16px;padding:1.5rem;height:fit-content;position:sticky;top:80px;}
+.order-summary-card h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;margin-bottom:1.25rem;}
+.summary-item{display:flex;justify-content:space-between;font-size:.875rem;margin-bottom:.6rem;}
+.summary-divider{border:none;border-top:1px solid var(--border);margin:.75rem 0;}
+.summary-total{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;}
+
+/* DESIGNER PAGE */
+.designer-page{padding:5rem 0 0;}
+.designer-topbar{background:var(--ink);padding:.75rem 2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.designer-topbar h2{color:white;font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;margin-right:auto;}
+.product-selector{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.25rem;}
+.prod-chip{padding:.4rem 1rem;border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid #3a3a40;color:#aaa;background:transparent;white-space:nowrap;transition:all .2s;}
+.prod-chip.active{background:var(--accent);border-color:var(--accent);color:white;}
+.designer-workspace{display:grid;grid-template-columns:220px 1fr 200px;min-height:calc(100vh - 130px);}
+.d-panel{background:#111113;border-right:1px solid #1e1e22;padding:1rem;overflow-y:auto;}
+.d-panel-r{background:#111113;border-left:1px solid #1e1e22;padding:1rem;}
+.d-section-title{font-size:.68rem;color:#555;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;margin-top:1rem;}
+.d-section-title:first-child{margin-top:0;}
+.d-item{padding:.5rem .6rem;border-radius:6px;font-size:.8rem;color:#bbb;cursor:pointer;margin-bottom:2px;transition:background .15s;display:flex;align-items:center;gap:.5rem;}
+.d-item:hover{background:#2a2a30;}
+.d-item.active{background:#2a2a30;color:white;}
+.d-canvas{background:#e8e8e8;display:flex;align-items:center;justify-content:center;position:relative;flex:1;}
+.canvas-product{position:relative;display:flex;align-items:center;justify-content:center;}
+.canvas-tshirt{width:280px;height:320px;background:#2563eb;clip-path:polygon(20% 0%,80% 0%,100% 20%,85% 22%,85% 100%,15% 100%,15% 22%,0% 20%);display:flex;align-items:center;justify-content:center;transition:background .3s;}
+.canvas-design-text{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;color:white;text-align:center;line-height:1.1;text-shadow:0 2px 4px rgba(0,0,0,.3);}
+.canvas-controls{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;}
+.canvas-btn{padding:.5rem 1rem;border-radius:6px;font-size:.78rem;font-weight:600;cursor:pointer;border:none;font-family:'Space Grotesk',sans-serif;}
+.color-palette{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:.75rem;}
+.cp-swatch{width:100%;aspect-ratio:1;border-radius:5px;cursor:pointer;transition:transform .15s;}
+.cp-swatch:hover{transform:scale(1.2);}
+.cp-swatch.active{outline:2px solid white;outline-offset:2px;}
+.range-row{margin-bottom:.75rem;}
+.range-row label{font-size:.68rem;color:#666;margin-bottom:3px;display:flex;justify-content:space-between;}
+.range-row input{width:100%;accent-color:var(--purple);}
+.text-input{width:100%;background:#1a1a1e;border:1px solid #2a2a30;color:white;padding:.5rem;border-radius:6px;font-size:.82rem;font-family:'Space Grotesk',sans-serif;margin-bottom:.5rem;}
+.text-input:focus{outline:none;border-color:var(--purple);}
+.ki-btn{width:100%;padding:.65rem;border-radius:8px;background:linear-gradient(135deg,var(--purple),#ec4899);border:none;color:white;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;margin-bottom:.75rem;}
+.publish-btn{width:100%;padding:.7rem;border-radius:8px;background:var(--accent);border:none;color:white;font-size:.85rem;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;margin-top:.5rem;}
+.publish-btn:hover{background:#e03d0d;}
+
+/* DASHBOARD PAGE */
+.dashboard-page{padding:5rem 0 0;display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+.dash-sidebar{background:#0f0f11;border-right:1px solid #1e1e22;padding:1.5rem 0;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;}
+.dash-brand{padding:0 1.25rem 1.5rem;border-bottom:1px solid #1e1e22;margin-bottom:1rem;}
+.dash-brand-name{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:white;}
+.dash-brand-name span{color:var(--accent);}
+.dash-user-info{display:flex;align-items:center;gap:.6rem;margin-top:.75rem;}
+.dash-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));flex-shrink:0;}
+.dash-user-name{font-size:.82rem;color:#888;font-weight:500;}
+.dash-nav-item{display:flex;align-items:center;gap:.6rem;padding:.65rem 1.25rem;font-size:.82rem;color:#555;cursor:pointer;transition:all .15s;border-left:3px solid transparent;}
+.dash-nav-item:hover,.dash-nav-item.active{color:white;background:#1a1a1e;border-left-color:var(--accent);}
+.dash-nav-section{font-size:.65rem;color:#333;text-transform:uppercase;letter-spacing:.08em;padding:.5rem 1.25rem;margin-top:.75rem;}
+.dash-main{background:#0a0a0c;padding:2rem;}
+.dash-page{display:none;}
+.dash-page.active{display:block;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+.kpi-card{background:#111113;border:1px solid #1e1e22;border-radius:12px;padding:1.25rem;}
+.kpi-label{font-size:.72rem;color:#555;margin-bottom:.4rem;}
+.kpi-val{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;color:white;}
+.kpi-delta{font-size:.72rem;margin-top:.3rem;}
+.kpi-delta.up{color:var(--success);}
+.kpi-delta.down{color:#f87171;}
+.dash-table-wrap{background:#111113;border:1px solid #1e1e22;border-radius:12px;overflow:hidden;margin-bottom:2rem;}
+.dash-table-header{padding:1rem 1.25rem;border-bottom:1px solid #1e1e22;display:flex;align-items:center;justify-content:space-between;}
+.dash-table-title{font-size:.9rem;font-weight:700;color:white;}
+.dash-table{width:100%;border-collapse:collapse;}
+.dash-table th{font-size:.7rem;color:#444;text-transform:uppercase;letter-spacing:.05em;padding:.6rem 1rem;text-align:left;border-bottom:1px solid #1e1e22;}
+.dash-table td{padding:.75rem 1rem;font-size:.82rem;color:#aaa;border-bottom:1px solid #111;}
+.dash-table tr:last-child td{border-bottom:none;}
+.status-pill{padding:.2rem .6rem;border-radius:100px;font-size:.68rem;font-weight:600;}
+.s-active{background:rgba(13,189,112,.15);color:var(--success);}
+.s-pending{background:rgba(251,146,60,.15);color:#fb923c;}
+.s-draft{background:rgba(107,104,105,.15);color:#888;}
+.product-row-img{width:36px;height:36px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;margin-right:.5rem;vertical-align:middle;}
+.chart-area{background:#111113;border:1px solid #1e1e22;border-radius:12px;padding:1.25rem;margin-bottom:2rem;}
+.chart-bars{display:flex;align-items:flex-end;gap:.5rem;height:120px;margin-top:1rem;}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+.chart-bar{width:100%;background:linear-gradient(to top,var(--accent2),var(--accent));border-radius:4px 4px 0 0;transition:height .5s;}
+.chart-bar-label{font-size:.65rem;color:#555;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.earnings-item{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid #1e1e22;}
+.earnings-item:last-child{border:none;}
+.earnings-name{font-size:.82rem;color:#aaa;}
+.earnings-amount{font-family:'Fraunces',serif;font-weight:700;color:white;}
+
+/* AUTH MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:white;border-radius:20px;padding:2.5rem;width:90%;max-width:440px;position:relative;animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes modalIn{from{transform:scale(.85) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal-close{position:absolute;top:1rem;right:1rem;background:var(--border);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.modal-close:hover{background:#ddd;}
+.modal h2{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;margin-bottom:.4rem;}
+.modal p{color:var(--mid);font-size:.9rem;margin-bottom:1.5rem;}
+.tabs{display:flex;gap:0;margin-bottom:1.5rem;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;}
+.tab-btn{flex:1;padding:.6rem;font-size:.875rem;font-weight:600;background:none;border:none;cursor:pointer;transition:all .2s;font-family:'Space Grotesk',sans-serif;}
+.tab-btn.active{background:var(--ink);color:white;}
+.form-divider{text-align:center;font-size:.8rem;color:var(--mid);margin:1rem 0;position:relative;}
+.form-divider::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border);}
+.form-divider span{background:white;padding:0 .75rem;position:relative;}
+.social-login{display:flex;gap:.75rem;}
+.social-btn{flex:1;padding:.65rem;border:1.5px solid var(--border);border-radius:8px;background:white;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;justify-content:center;gap:.4rem;}
+.social-btn:hover{background:var(--paper);border-color:#bbb;}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.plan-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:2rem;position:relative;transition:all .25s;}
+.plan-card:hover{box-shadow:0 20px 50px rgba(0,0,0,.1);}
+.plan-card.popular{border-color:var(--accent2);background:#f0f4ff;}
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent2);color:white;font-size:.72rem;font-weight:700;padding:.3rem 1rem;border-radius:100px;white-space:nowrap;}
+.plan-name{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:.5rem;}
+.plan-price{font-family:'Fraunces',serif;font-size:2.8rem;font-weight:900;line-height:1;margin-bottom:.25rem;}
+.plan-price span{font-size:1rem;font-family:'Space Grotesk',sans-serif;color:var(--mid);}
+.plan-desc{font-size:.85rem;color:var(--mid);margin-bottom:1.5rem;}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem;}
+.plan-features li{display:flex;align-items:center;gap:.6rem;font-size:.875rem;}
+.feat-check{color:var(--success);font-size:.8rem;}
+.feat-x{color:#ccc;font-size:.8rem;}
+
+/* CTA */
+.cta-section{background:var(--accent);padding:5rem 4rem;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.cta-section h2{font-family:'Fraunces',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:white;margin-bottom:1rem;position:relative;}
+.cta-section p{color:rgba(255,255,255,.8);font-size:1.1rem;margin-bottom:2rem;position:relative;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;}
+.btn-white{background:white;color:var(--accent);font-weight:700;}
+.btn-white:hover{background:var(--paper);}
+.btn-outline-white{background:transparent;border:2px solid rgba(255,255,255,.6);color:white;font-weight:700;}
+.btn-outline-white:hover{background:rgba(255,255,255,.15);}
+
+/* FOOTER */
+footer{background:#0a0a0c;color:#666;padding:3rem 4rem 2rem;}
+.footer-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:3rem;margin-bottom:2.5rem;}
+.footer-brand h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;color:white;margin-bottom:.75rem;}
+.footer-brand h3 span{color:var(--accent);}
+.footer-brand p{font-size:.85rem;line-height:1.7;max-width:240px;}
+.footer-col h4{font-size:.8rem;font-weight:700;color:white;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem;}
+.footer-col a{display:block;font-size:.83rem;color:#555;text-decoration:none;margin-bottom:.5rem;transition:color .2s;cursor:pointer;}
+.footer-col a:hover{color:white;}
+.footer-bottom{border-top:1px solid #1a1a1e;padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;background:var(--ink);color:white;padding:1rem 1.5rem;border-radius:12px;font-size:.875rem;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.3);transform:translateY(120%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:.6rem;max-width:340px;}
+.toast.show{transform:translateY(0);}
+
+/* SUCCESS PAGE */
+.success-page{display:flex;align-items:center;justify-content:center;min-height:80vh;text-align:center;padding:2rem;}
+.success-icon{font-size:5rem;display:block;margin-bottom:1.5rem;animation:popIn .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+.success-page h2{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;margin-bottom:1rem;}
+.success-page p{color:var(--mid);font-size:1.05rem;margin-bottom:2rem;max-width:400px;margin-left:auto;margin-right:auto;}
+
+/* KI GENERATOR */
+.ki-modal .modal{max-width:560px;}
+.ki-output{background:var(--paper);border-radius:10px;padding:1.25rem;margin-top:1rem;min-height:80px;font-size:.9rem;line-height:1.6;color:var(--ink);}
+.ki-loading{display:flex;align-items:center;gap:.75rem;color:var(--mid);}
+.ki-dots span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:dot 1.2s infinite;}
+.ki-dots span:nth-child(2){animation-delay:.2s;}
+.ki-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:100px 1.5rem 4rem;}
+  .hero-visual{display:none;}
+  .features-grid,.cat-grid,.pricing-grid,.product-grid{grid-template-columns:repeat(2,1fr);}
+  section.content-section,.categories-section,.marketplace-page,.checkout-page,.cta-section{padding:4rem 1.5rem;}
+  footer{padding:2rem 1.5rem;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .checkout-grid{grid-template-columns:1fr;}
+  .dashboard-page{grid-template-columns:1fr;}
+  .dash-sidebar{display:none;}
+  .designer-workspace{grid-template-columns:1fr;}
+  .d-panel,.d-panel-r{display:none;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .cart-sidebar{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">Print<span style="color:#FF4D1C">Nexo</span></a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('marktplatz')">Marktplatz</a></li>
+    <li><a onclick="showPage('designer')">Designer</a></li>
+    <li><a onclick="showPage('preise')">Preise</a></li>
+    <li><a onclick="showPage('dashboard')">Creator</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="toggleCart()">🛒<span class="cart-badge" id="cartBadge">0</span></button>
+    <button class="btn btn-ghost btn-sm" onclick="openModal('login')">Anmelden</button>
+    <button class="btn btn-primary btn-sm" onclick="openModal('register')">Kostenlos starten</button>
+  </div>
+</nav>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 Warenkorb</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><span class="cart-empty-icon">🛍️</span><p>Dein Warenkorb ist leer.<br>Entdecke unsere Produkte!</p></div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row"><span>Zwischensumme</span><span id="cartSubtotal">€0,00</span></div>
+    <div class="cart-total-row"><span>Versand</span><span style="color:var(--success)">Kostenlos</span></div>
+    <div class="cart-total-row"><span>MwSt. (19%)</span><span id="cartTax">€0,00</span></div>
+    <div class="cart-total-row big"><span>Gesamt</span><span id="cartTotal">€0,00</span></div>
+    <button class="btn btn-primary btn-block" style="margin-top:1rem" onclick="goCheckout()">Zur Kasse →</button>
+    <button class="btn btn-ghost btn-block" style="margin-top:.5rem" onclick="toggleCart()">Weiter einkaufen</button>
+  </div>
+</div>
+
+<!-- ═══ HOME PAGE ═══ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div>
+      <div style="margin-bottom:1.5rem"><svg width="160" height="36" viewBox="0 0 160 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;">
+  <!-- P hexagon mark -->
+  <polygon points="18,2 30,9 30,23 18,30 6,23 6,9" fill="#FF4D1C" opacity="0.15"/>
+  <polygon points="18,5 27,10.5 27,21.5 18,27 9,21.5 9,10.5" fill="none" stroke="#FF4D1C" stroke-width="1.5"/>
+  <text x="18" y="21" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="900" fill="#FF4D1C">P</text>
+  <!-- PRINTNEXO wordmark -->
+  <text x="38" y="24" font-family="Georgia,serif" font-size="20" font-weight="900" fill="#0D0D0F" letter-spacing="-0.5">PRINT</text>
+  <text x="96" y="24" font-family="Georgia,serif" font-size="20" font-weight="900" fill="#FF4D1C" letter-spacing="-0.5">NEXO</text>
+</svg></div>
+    <div class="hero-eyebrow"><span class="dot"></span>Print-on-Demand & Marktplatz</div>
+      <h1>Dein Design.<br><em>Dein Shop.</em><br>Dein Erfolg.</h1>
+      <p class="hero-sub">Gestalte Produkte mit deinem eigenen Design, eröffne deinen Shop in Minuten und verkaufe auf unserem Marktplatz – von Textilien über Elektronik bis zu Haushaltswaren.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-xl" onclick="openModal('register')">Jetzt loslegen – kostenlos</button>
+        <button class="btn btn-ghost btn-xl" onclick="showPage('marktplatz')">Marktplatz entdecken</button>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-num">12.400+</span><span class="stat-lbl">Aktive Creator</span></div>
+        <div><span class="stat-num">340k+</span><span class="stat-lbl">Verkaufte Produkte</span></div>
+        <div><span class="stat-num">58</span><span class="stat-lbl">Kategorien</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="designer-mock">
+        <div class="mock-topbar">
+          <div class="mock-dot" style="background:#ff5f57"></div>
+          <div class="mock-dot" style="background:#febc2e"></div>
+          <div class="mock-dot" style="background:#28c840"></div>
+          <span style="color:#555;font-size:.75rem;margin-left:.5rem">PrintNexo Designer</span>
+        </div>
+        <div class="mock-canvas-area">
+          <div class="mock-sidebar">
+            <div class="tool-btn-mock active">✏️</div>
+            <div class="tool-btn-mock">📝</div>
+            <div class="tool-btn-mock">🖼️</div>
+            <div class="tool-btn-mock">🎨</div>
+          </div>
+          <div class="mock-stage">
+            <div class="tshirt-body" id="heroShirt">
+              <div class="design-on-shirt">MY<br>DESIGN</div>
+            </div>
+          </div>
+          <div class="mock-props">
+            <div>
+              <div class="prop-label">Farbe</div>
+              <div class="color-swatch-row">
+                <div class="swatch active" style="background:#2563eb" onclick="changeHeroShirt('#2563eb',this)"></div>
+                <div class="swatch" style="background:#dc2626" onclick="changeHeroShirt('#dc2626',this)"></div>
+                <div class="swatch" style="background:#16a34a" onclick="changeHeroShirt('#16a34a',this)"></div>
+                <div class="swatch" style="background:#111" onclick="changeHeroShirt('#111',this)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="prop-label">Produkt</div>
+              <select class="prop-select"><option>T-Shirt</option><option>Hoodie</option><option>Tasse</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="floating-badge">✅ Sofort zum Verkauf bereit</div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="content-section">
+    <div class="section-eyebrow">Alles in einer Plattform</div>
+    <h2 class="section-title">Von der Idee zum<br>Online-Shop in Minuten</h2>
+    <p class="section-sub">Keine Vorabkosten, kein Lager, kein Versandstress.</p>
+    <div class="features-grid">
+      <div class="feature-card" data-num="01"><div class="feature-icon icon-red">🎨</div><h3>KI-Design Studio</h3><p>Beschreibe dein Design – die KI erstellt es automatisch. Kein Photoshop nötig.</p></div>
+      <div class="feature-card" data-num="02"><div class="feature-icon icon-blue">🏪</div><h3>Eigener Shop</h3><p>Dein Shop, deine URL, dein Branding. In 2 Minuten einsatzbereit.</p></div>
+      <div class="feature-card" data-num="03"><div class="feature-icon icon-green">📦</div><h3>Automatischer Versand</h3><p>Bestellungen werden automatisch gedruckt und direkt versendet.</p></div>
+      <div class="feature-card" data-num="04"><div class="feature-icon icon-purple">💳</div><h3>Alle Zahlungsarten</h3><p>Stripe, PayPal, Klarna, Apple Pay, Google Pay – alles integriert.</p></div>
+      <div class="feature-card" data-num="05"><div class="feature-icon icon-orange">📊</div><h3>Creator Dashboard</h3><p>Verkäufe, Einnahmen und Analytics in Echtzeit verfolgen.</p></div>
+      <div class="feature-card" data-num="06"><div class="feature-icon icon-teal">🌍</div><h3>Globaler Marktplatz</h3><p>Millionen Käufer warten auf deine Produkte – weltweit.</p></div>
+    </div>
+  </section>
+
+  <!-- KATEGORIEN -->
+  <section class="categories-section">
+    <div class="section-eyebrow">58 Kategorien</div>
+    <h2 class="section-title">Jedes Produkt.<br>Jede Kategorie.</h2>
+    <p class="section-sub">Von Textilien über Elektronik bis zu Haushaltswaren – alles auf PrintNexo.</p>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="showPage('marktplatz');filterCat('Textilien')"><span class="cat-emoji">👕</span><h4>Textilien & Mode</h4><p>T-Shirts, Hoodies, Caps…</p><span class="cat-count">240+</span></div>
+      <div class="cat-card" onclick="showPage('marktplatz');filterCat('Elektronik')"><span class="cat-emoji">📱</span><h4>Elektronik-Zubehör</h4><p>Handyhüllen, Laptop-Skins…</p><span class="cat-count">180+</span></div>
+      <div class="cat-card" onclick="showPage('marktplatz');filterCat('Haushalt')"><span class="cat-emoji">🏠</span><h4>Haushaltswaren</h4><p>Tassen, Kissen, Poster…</p><span class="cat-count">320+</span></div>
+      <div class="cat-card" onclick="showPage('marktplatz');filterCat('Schmuck')"><span class="cat-emoji">💎</span><h4>Schmuck & Accessoires</h4><p>Armbänder, Ketten, Ringe…</p><span class="cat-count">145+</span></div>
+      <div class="cat-card" onclick="showPage('marktplatz')"><span class="cat-emoji">🏋️</span><h4>Sport & Fitness</h4><p>Taschen, Flaschen, Matten…</p><span class="cat-count">95+</span></div>
+      <div class="cat-card" onclick="showPage('marktplatz')"><span class="cat-emoji">📚</span><h4>Büro & Schreibwaren</h4><p>Notizbücher, Kalender…</p><span class="cat-count">110+</span></div>
+      <div class="cat-card" onclick="showPage('marktplatz')"><span class="cat-emoji">🧸</span><h4>Kinder & Spielzeug</h4><p>Plüschtiere, personalisiert…</p><span class="cat-count">75+</span></div>
+      <div class="cat-card" onclick="showPage('marktplatz')"><span class="cat-emoji">🍫</span><h4>Lebensmittel & Mehr</h4><p>Eigenmarken, Verpackungen…</p><span class="cat-count">60+</span></div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="content-section" id="preise-anchor">
+    <div class="section-eyebrow">Abonnements</div>
+    <h2 class="section-title">Starte kostenlos.<br>Wachse mit uns.</h2>
+    <p class="section-sub">Kein Risiko, keine versteckten Kosten.</p>
+    <div class="pricing-grid">
+      <div class="plan-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">€0<span>/Mo.</span></div>
+        <div class="plan-desc">Perfekt zum Ausprobieren</div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span>5 aktive Produkte</li>
+          <li><span class="feat-check">✓</span>Marktplatz-Listing</li>
+          <li><span class="feat-check">✓</span>Basis-Designer</li>
+          <li><span class="feat-check">✓</span>10% Provision</li>
+          <li><span class="feat-x">✗</span>Eigener Shop-Link</li>
+          <li><span class="feat-x">✗</span>KI-Designer</li>
+        </ul>
+        <button class="btn btn-ghost btn-block" onclick="openModal('register')">Kostenlos starten</button>
+      </div>
+      <div class="plan-card popular">
+        <div class="popular-badge">⚡ Beliebteste Wahl</div>
+        <div class="plan-name">Creator Pro</div>
+        <div class="plan-price">€19<span>/Mo.</span></div>
+        <div class="plan-desc">Für ernsthafte Creator</div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span>Unbegrenzte Produkte</li>
+          <li><span class="feat-check">✓</span>Eigener Shop + URL</li>
+          <li><span class="feat-check">✓</span>KI-Designer</li>
+          <li><span class="feat-check">✓</span>Nur 5% Provision</li>
+          <li><span class="feat-check">✓</span>Analytics</li>
+          <li><span class="feat-check">✓</span>Wöchentliche Auszahlung</li>
+        </ul>
+        <button class="btn btn-blue btn-block" onclick="openModal('register')">Pro jetzt starten</button>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Business</div>
+        <div class="plan-price">€59<span>/Mo.</span></div>
+        <div class="plan-desc">Für Unternehmen & Brands</div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span>Alles aus Pro</li>
+          <li><span class="feat-check">✓</span>Branded Verpackung</li>
+          <li><span class="feat-check">✓</span>API-Zugang</li>
+          <li><span class="feat-check">✓</span>0% Provision</li>
+          <li><span class="feat-check">✓</span>Team (5 User)</li>
+          <li><span class="feat-check">✓</span>Tägliche Auszahlung</li>
+        </ul>
+        <button class="btn btn-primary btn-block" onclick="openModal('register')">Business wählen</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Starte heute.<br>Verdiene ab morgen.</h2>
+    <p>Über 12.400 Creator verdienen bereits auf PrintNexo.</p>
+    <div class="cta-btns">
+      <button class="btn btn-white btn-xl" onclick="openModal('register')">Kostenlos registrieren</button>
+      <button class="btn btn-outline-white btn-xl" onclick="showPage('marktplatz')">Marktplatz entdecken</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><h3>Print<span style="color:#FF4D1C">Nexo</span></h3><p>Die führende Print-on-Demand & Marktplatz-Plattform im deutschsprachigen Raum.</p></div>
+      <div class="footer-col"><h4>Plattform</h4><a onclick="showPage('designer')">Design-Studio</a><a onclick="showPage('marktplatz')">Marktplatz</a><a onclick="showPage('dashboard')">Creator Dashboard</a><a onclick="showPage('preise')">Preise</a></div>
+      <div class="footer-col"><h4>Produkte</h4><a onclick="showPage('marktplatz')">Textilien</a><a onclick="showPage('marktplatz')">Elektronik</a><a onclick="showPage('marktplatz')">Haushalt</a><a onclick="showPage('marktplatz')">Schmuck</a></div>
+      <div class="footer-col"><h4>Support</h4><a href="#">Hilfe-Center</a><a href="#">Kontakt</a><a href="#">Datenschutz</a><a href="#">AGB</a><a href="#">Impressum</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 PrintNexo GmbH · Alle Rechte vorbehalten</span><span>🇩🇪 Made in Germany</span></div>
+  </footer>
+</div>
+
+<!-- ═══ MARKTPLATZ PAGE ═══ -->
+<div class="page" id="page-marktplatz">
+  <div class="marketplace-page">
+    <div class="section-eyebrow">Marktplatz</div>
+    <h2 class="section-title">Alle Produkte entdecken</h2>
+    <div class="mp-search">
+      <input type="text" placeholder="🔍 Produkte suchen…" id="mpSearch" oninput="filterProducts()">
+      <button class="btn btn-primary" onclick="filterProducts()">Suchen</button>
+    </div>
+    <div class="mp-filters" id="mpFilters">
+      <div class="filter-chip active" onclick="filterCat('Alle')">Alle</div>
+      <div class="filter-chip" onclick="filterCat('Textilien')">👕 Textilien</div>
+      <div class="filter-chip" onclick="filterCat('Elektronik')">📱 Elektronik</div>
+      <div class="filter-chip" onclick="filterCat('Haushalt')">🏠 Haushalt</div>
+      <div class="filter-chip" onclick="filterCat('Schmuck')">💎 Schmuck</div>
+      <div class="filter-chip" onclick="filterCat('Sport')">🏋️ Sport</div>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+  <footer style="background:#0a0a0c;color:#666;padding:2rem 4rem;">
+    <div class="footer-bottom"><span>© 2025 PrintNexo GmbH</span><a onclick="showPage('home')" style="color:#555;cursor:pointer">← Zurück zur Startseite</a></div>
+  </footer>
+</div>
+
+<!-- ═══ DESIGNER PAGE ═══ -->
+<div class="page" id="page-designer">
+  <div class="designer-page">
+    <div class="designer-topbar">
+      <h2>🎨 Design Studio</h2>
+      <div class="product-selector">
+        <div class="prod-chip active" onclick="selectProduct('tshirt',this)">👕 T-Shirt</div>
+        <div class="prod-chip" onclick="selectProduct('hoodie',this)">🧥 Hoodie</div>
+        <div class="prod-chip" onclick="selectProduct('tasse',this)">☕ Tasse</div>
+        <div class="prod-chip" onclick="selectProduct('huelle',this)">📱 Handyhülle</div>
+        <div class="prod-chip" onclick="selectProduct('kissen',this)">🛋️ Kissen</div>
+        <div class="prod-chip" onclick="selectProduct('poster',this)">🖼️ Poster</div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="publishDesign()">✅ Veröffentlichen</button>
+    </div>
+    <div class="designer-workspace">
+      <div class="d-panel">
+        <div class="d-section-title">Text hinzufügen</div>
+        <input class="text-input" id="designText" placeholder="Dein Text…" oninput="updateDesign()">
+        <div class="d-section-title">Schriftart</div>
+        <div class="d-item active" onclick="setFont('Fraunces',this)">𝐒 Serif Bold</div>
+        <div class="d-item" onclick="setFont('Space Grotesk',this)">S Sans Modern</div>
+        <div class="d-item" onclick="setFont('Georgia',this)">𝑆 Classic Serif</div>
+        <div class="d-section-title">KI-Generator</div>
+        <button class="ki-btn" onclick="openKI()">✨ KI Design generieren</button>
+        <div class="d-section-title">Vorlagen</div>
+        <div class="d-item" onclick="applyTemplate('VIBE\nCHECK')">⭐ Vibe Check</div>
+        <div class="d-item" onclick="applyTemplate('GOOD\nVIBES')">🔥 Good Vibes</div>
+        <div class="d-item" onclick="applyTemplate('STAY\nCOOL')">❄️ Stay Cool</div>
+        <div class="d-item" onclick="applyTemplate('NO\nLIMITS')">💪 No Limits</div>
+      </div>
+      <div class="d-canvas">
+        <div class="canvas-product">
+          <div class="canvas-tshirt" id="canvasProduct">
+            <div class="canvas-design-text" id="canvasText" style="font-family:'Fraunces',serif">MY<br>DESIGN</div>
+          </div>
+        </div>
+        <div class="canvas-controls">
+          <button class="canvas-btn" style="background:var(--ink);color:white" onclick="saveDesign()">💾 Speichern</button>
+          <button class="canvas-btn" style="background:var(--accent);color:white" onclick="publishDesign()">🚀 Veröffentlichen</button>
+        </div>
+      </div>
+      <div class="d-panel-r">
+        <div class="d-section-title">Produktfarbe</div>
+        <div class="color-palette">
+          <div class="cp-swatch active" style="background:#2563eb" onclick="setProductColor('#2563eb',this)"></div>
+          <div class="cp-swatch" style="background:#dc2626" onclick="setProductColor('#dc2626',this)"></div>
+          <div class="cp-swatch" style="background:#16a34a" onclick="setProductColor('#16a34a',this)"></div>
+          <div class="cp-swatch" style="background:#111111" onclick="setProductColor('#111111',this)"></div>
+          <div class="cp-swatch" style="background:#f59e0b" onclick="setProductColor('#f59e0b',this)"></div>
+          <div class="cp-swatch" style="background:#7c3aed" onclick="setProductColor('#7c3aed',this)"></div>
+          <div class="cp-swatch" style="background:#ec4899" onclick="setProductColor('#ec4899',this)"></div>
+          <div class="cp-swatch" style="background:#ffffff;border:1px solid #ddd" onclick="setProductColor('#ffffff',this)"></div>
+        </div>
+        <div class="d-section-title">Textfarbe</div>
+        <div class="color-palette">
+          <div class="cp-swatch" style="background:#ffffff;border:1px solid #eee" onclick="setTextColor('white')"></div>
+          <div class="cp-swatch" style="background:#111111" onclick="setTextColor('#111111')"></div>
+          <div class="cp-swatch" style="background:#FF4D1C" onclick="setTextColor('#FF4D1C')"></div>
+          <div class="cp-swatch" style="background:#f59e0b" onclick="setTextColor('#f59e0b')"></div>
+        </div>
+        <div class="d-section-title">Anpassung</div>
+        <div class="range-row"><label>Textgröße <span id="sizeVal">1.8</span>rem</label><input type="range" min="0.8" max="3.5" step="0.1" value="1.8" oninput="setTextSize(this.value)"></div>
+        <div class="range-row"><label>Transparenz</label><input type="range" min="10" max="100" value="100" oninput="setOpacity(this.value)"></div>
+        <div class="d-section-title">Preis festlegen</div>
+        <input class="text-input" id="productPrice" placeholder="z.B. 24,99" type="number" step="0.01">
+        <button class="publish-btn" onclick="publishDesign()">🚀 Jetzt veröffentlichen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PREISE PAGE ═══ -->
+<div class="page" id="page-preise">
+  <section class="content-section">
+    <div class="section-eyebrow">Abonnements</div>
+    <h2 class="section-title">Starte kostenlos.<br>Wachse mit uns.</h2>
+    <p class="section-sub">Kein Risiko, keine versteckten Kosten. Wähle das Abo, das zu dir passt.</p>
+    <div class="pricing-grid">
+      <div class="plan-card"><div class="plan-name">Starter</div><div class="plan-price">€0<span>/Mo.</span></div><div class="plan-desc">Perfekt zum Ausprobieren</div><ul class="plan-features"><li><span class="feat-check">✓</span>5 aktive Produkte</li><li><span class="feat-check">✓</span>Marktplatz-Listing</li><li><span class="feat-check">✓</span>Basis-Designer</li><li><span class="feat-check">✓</span>10% Provision</li><li><span class="feat-x">✗</span>Eigener Shop-Link</li><li><span class="feat-x">✗</span>KI-Designer</li><li><span class="feat-x">✗</span>Analytics</li></ul><button class="btn btn-ghost btn-block" onclick="openModal('register')">Kostenlos starten</button></div>
+      <div class="plan-card popular"><div class="popular-badge">⚡ Beliebteste Wahl</div><div class="plan-name">Creator Pro</div><div class="plan-price">€19<span>/Mo.</span></div><div class="plan-desc">Für ernsthafte Creator</div><ul class="plan-features"><li><span class="feat-check">✓</span>Unbegrenzte Produkte</li><li><span class="feat-check">✓</span>Eigener Shop + URL</li><li><span class="feat-check">✓</span>KI-Designer + Vorlagen</li><li><span class="feat-check">✓</span>Nur 5% Provision</li><li><span class="feat-check">✓</span>Ausführliche Analytics</li><li><span class="feat-check">✓</span>Wöchentliche Auszahlung</li><li><span class="feat-x">✗</span>Branded Verpackung</li></ul><button class="btn btn-blue btn-block" onclick="selectPlan('Creator Pro – €19/Mo.')">Pro jetzt starten</button></div>
+      <div class="plan-card"><div class="plan-name">Business</div><div class="plan-price">€59<span>/Mo.</span></div><div class="plan-desc">Für Unternehmen & Brands</div><ul class="plan-features"><li><span class="feat-check">✓</span>Alles aus Pro</li><li><span class="feat-check">✓</span>Branded Verpackung</li><li><span class="feat-check">✓</span>API-Zugang</li><li><span class="feat-check">✓</span>0% Provision</li><li><span class="feat-check">✓</span>Team (5 User)</li><li><span class="feat-check">✓</span>Tägliche Auszahlung</li><li><span class="feat-check">✓</span>Priorität-Support</li></ul><button class="btn btn-primary btn-block" onclick="selectPlan('Business – €59/Mo.')">Business wählen</button></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ DASHBOARD PAGE ═══ -->
+<div class="page" id="page-dashboard">
+  <div class="dashboard-page">
+    <div class="dash-sidebar">
+      <div class="dash-brand">
+        <div class="dash-brand-name">Print<span style="color:#FF4D1C">Nexo</span> Creator</div>
+        <div class="dash-user-info"><div class="dash-avatar"></div><div class="dash-user-name">@mein-shop</div></div>
+      </div>
+      <div class="dash-nav-section">Übersicht</div>
+      <div class="dash-nav-item active" onclick="showDash('overview')">📊 Dashboard</div>
+      <div class="dash-nav-item" onclick="showDash('products')">🛍️ Meine Produkte</div>
+      <div class="dash-nav-item" onclick="showDash('orders')">📦 Bestellungen</div>
+      <div class="dash-nav-item" onclick="showDash('earnings')">💰 Einnahmen</div>
+      <div class="dash-nav-section">Tools</div>
+      <div class="dash-nav-item" onclick="showPage('designer')">🎨 Design-Studio</div>
+      <div class="dash-nav-item" onclick="showDash('reviews')">⭐ Bewertungen</div>
+      <div class="dash-nav-section">Einstellungen</div>
+      <div class="dash-nav-item" onclick="showDash('settings')">⚙️ Shop-Einstellungen</div>
+      <div class="dash-nav-item" onclick="showPage('preise')">💳 Abonnement</div>
+    </div>
+    <div class="dash-main">
+      <!-- OVERVIEW -->
+      <div class="dash-page active" id="dash-overview">
+        <h2 style="color:white;font-family:'Fraunces',serif;font-size:1.6rem;margin-bottom:1.5rem">Guten Tag, Creator! 👋</h2>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Einnahmen (Monat)</div><div class="kpi-val">€3.842</div><div class="kpi-delta up">↑ +18% vs. Vormonat</div></div>
+          <div class="kpi-card"><div class="kpi-label">Bestellungen</div><div class="kpi-val">147</div><div class="kpi-delta up">↑ +24 diese Woche</div></div>
+          <div class="kpi-card"><div class="kpi-label">Aktive Produkte</div><div class="kpi-val">38</div><div class="kpi-delta up">+ 3 neu</div></div>
+          <div class="kpi-card"><div class="kpi-label">Bewertung</div><div class="kpi-val">4.9 ★</div><div class="kpi-delta up">256 Bewertungen</div></div>
+        </div>
+        <div class="chart-area">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:white;font-weight:700">Einnahmen (letzte 7 Tage)</span><span style="color:#555;font-size:.8rem">Gesamt: €3.842</span></div>
+          <div class="chart-bars">
+            <div class="chart-bar-wrap"><div class="chart-bar" style="height:45%"></div><div class="chart-bar-label">Mo</div></div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="height:62%"></div><div class="chart-bar-label">Di</div></div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="height:78%"></div><div class="chart-bar-label">Mi</div></div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="height:55%"></div><div class="chart-bar-label">Do</div></div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="height:90%"></div><div class="chart-bar-label">Fr</div></div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="height:100%"></div><div class="chart-bar-label">Sa</div></div>
+            <div class="chart-bar-wrap"><div class="chart-bar" style="height:70%"></div><div class="chart-bar-label">So</div></div>
+          </div>
+        </div>
+        <div class="dash-table-wrap">
+          <div class="dash-table-header"><span class="dash-table-title">Neueste Bestellungen</span><button class="btn btn-sm" style="background:#1a1a1e;color:#aaa;border:none" onclick="showDash('orders')">Alle ansehen →</button></div>
+          <table class="dash-table">
+            <thead><tr><th>Produkt</th><th>Kunde</th><th>Betrag</th><th>Datum</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="product-row-img" style="background:#1e1e3a">☕</span>Morning Vibes Tasse</td><td>Maria S.</td><td>€19,99</td><td>Heute, 14:32</td><td><span class="status-pill s-active">Versandt</span></td></tr>
+              <tr><td><span class="product-row-img" style="background:#1e2a1e">👕</span>Oversized Hoodie</td><td>Thomas K.</td><td>€44,99</td><td>Heute, 11:15</td><td><span class="status-pill s-active">Versandt</span></td></tr>
+              <tr><td><span class="product-row-img" style="background:#2a1e1e">📱</span>iPhone Hülle Galaxy</td><td>Lena M.</td><td>€24,99</td><td>Gestern</td><td><span class="status-pill s-pending">In Produktion</span></td></tr>
+              <tr><td><span class="product-row-img" style="background:#2a2a1e">🎒</span>Canvas Tote Bag</td><td>Stefan B.</td><td>€22,99</td><td>Gestern</td><td><span class="status-pill s-pending">In Produktion</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- PRODUCTS -->
+      <div class="dash-page" id="dash-products">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+          <h2 style="color:white;font-family:'Fraunces',serif;font-size:1.5rem">Meine Produkte</h2>
+          <button class="btn btn-primary btn-sm" onclick="showPage('designer')">+ Neues Design</button>
+        </div>
+        <div class="dash-table-wrap">
+          <table class="dash-table">
+            <thead><tr><th>Produkt</th><th>Kategorie</th><th>Preis</th><th>Verkäufe</th><th>Einnahmen</th><th>Status</th><th>Aktionen</th></tr></thead>
+            <tbody>
+              <tr><td><span class="product-row-img" style="background:#1e1e3a">☕</span>Morning Vibes Tasse</td><td>Haushalt</td><td>€19,99</td><td>42</td><td>€839</td><td><span class="status-pill s-active">Aktiv</span></td><td><button class="btn btn-sm" style="background:#1a1a1e;color:#aaa;border:none" onclick="showPage('designer')">✏️ Bearbeiten</button></td></tr>
+              <tr><td><span class="product-row-img" style="background:#1e2a1e">👕</span>Oversized Hoodie</td><td>Textilien</td><td>€44,99</td><td>31</td><td>€1.394</td><td><span class="status-pill s-active">Aktiv</span></td><td><button class="btn btn-sm" style="background:#1a1a1e;color:#aaa;border:none" onclick="showPage('designer')">✏️ Bearbeiten</button></td></tr>
+              <tr><td><span class="product-row-img" style="background:#2a1e1e">📱</span>iPhone Hülle Galaxy</td><td>Elektronik</td><td>€24,99</td><td>58</td><td>€1.449</td><td><span class="status-pill s-active">Aktiv</span></td><td><button class="btn btn-sm" style="background:#1a1a1e;color:#aaa;border:none" onclick="showPage('designer')">✏️ Bearbeiten</button></td></tr>
+              <tr><td><span class="product-row-img" style="background:#2a2a1e">🎒</span>Canvas Tote Bag</td><td>Accessoires</td><td>€22,99</td><td>16</td><td>€368</td><td><span class="status-pill s-pending">In Prüfung</span></td><td><button class="btn btn-sm" style="background:#1a1a1e;color:#aaa;border:none">👁️ Ansehen</button></td></tr>
+              <tr><td><span class="product-row-img" style="background:#1e2a2a">💎</span>Gravierter Schmuck</td><td>Schmuck</td><td>€49,99</td><td>0</td><td>€0</td><td><span class="status-pill s-draft">Entwurf</span></td><td><button class="btn btn-sm" style="background:#1a1a1e;color:#aaa;border:none" onclick="showPage('designer')">✏️ Bearbeiten</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- ORDERS -->
+      <div class="dash-page" id="dash-orders">
+        <h2 style="color:white;font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:1.5rem">Bestellungen</h2>
+        <div class="dash-table-wrap">
+          <table class="dash-table">
+            <thead><tr><th>Bestellnr.</th><th>Produkt</th><th>Kunde</th><th>Betrag</th><th>Datum</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td style="color:#555">#PV-10847</td><td>Morning Vibes Tasse</td><td>Maria Schmidt</td><td>€19,99</td><td>23.06.2025</td><td><span class="status-pill s-active">Versandt</span></td></tr>
+              <tr><td style="color:#555">#PV-10846</td><td>Oversized Hoodie XL</td><td>Thomas Koch</td><td>€44,99</td><td>23.06.2025</td><td><span class="status-pill s-active">Versandt</span></td></tr>
+              <tr><td style="color:#555">#PV-10845</td><td>iPhone 15 Hülle</td><td>Lena Müller</td><td>€24,99</td><td>22.06.2025</td><td><span class="status-pill s-pending">In Produktion</span></td></tr>
+              <tr><td style="color:#555">#PV-10844</td><td>Canvas Tote Bag</td><td>Stefan Braun</td><td>€22,99</td><td>22.06.2025</td><td><span class="status-pill s-pending">In Produktion</span></td></tr>
+              <tr><td style="color:#555">#PV-10843</td><td>Morning Vibes Tasse</td><td>Anna Weber</td><td>€19,99</td><td>21.06.2025</td><td><span class="status-pill s-active">Geliefert</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- EARNINGS -->
+      <div class="dash-page" id="dash-earnings">
+        <h2 style="color:white;font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:1.5rem">Einnahmen</h2>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Gesamt (2025)</div><div class="kpi-val">€18.420</div><div class="kpi-delta up">↑ +34% vs. Vorjahr</div></div>
+          <div class="kpi-card"><div class="kpi-label">Dieser Monat</div><div class="kpi-val">€3.842</div><div class="kpi-delta up">↑ +18%</div></div>
+          <div class="kpi-card"><div class="kpi-label">Ausstehend</div><div class="kpi-val">€892</div><div class="kpi-delta" style="color:#888">Auszahlung Fr.</div></div>
+          <div class="kpi-card"><div class="kpi-label">Provision (5%)</div><div class="kpi-val">€192</div><div class="kpi-delta" style="color:#888">Creator Pro</div></div>
+        </div>
+        <div class="two-col">
+          <div class="dash-table-wrap" style="padding:1.25rem">
+            <div style="color:white;font-weight:700;margin-bottom:1rem">Top Produkte</div>
+            <div class="earnings-item"><span class="earnings-name">📱 iPhone Hülle Galaxy</span><span class="earnings-amount">€1.449</span></div>
+            <div class="earnings-item"><span class="earnings-name">👕 Oversized Hoodie</span><span class="earnings-amount">€1.394</span></div>
+            <div class="earnings-item"><span class="earnings-name">☕ Morning Vibes Tasse</span><span class="earnings-amount">€839</span></div>
+            <div class="earnings-item"><span class="earnings-name">🎒 Canvas Tote Bag</span><span class="earnings-amount">€368</span></div>
+          </div>
+          <div class="dash-table-wrap" style="padding:1.25rem">
+            <div style="color:white;font-weight:700;margin-bottom:1rem">Auszahlungen</div>
+            <div class="earnings-item"><span class="earnings-name">Mai 2025</span><span class="earnings-amount">€3.241</span></div>
+            <div class="earnings-item"><span class="earnings-name">Apr 2025</span><span class="earnings-amount">€2.890</span></div>
+            <div class="earnings-item"><span class="earnings-name">Mär 2025</span><span class="earnings-amount">€3.102</span></div>
+            <div class="earnings-item"><span class="earnings-name">Feb 2025</span><span class="earnings-amount">€2.445</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- REVIEWS -->
+      <div class="dash-page" id="dash-reviews">
+        <h2 style="color:white;font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:1.5rem">Kundenbewertungen ⭐</h2>
+        <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div class="kpi-card"><div class="kpi-label">Durchschnittsbewertung</div><div class="kpi-val">4.9 ★</div><div class="kpi-delta up">Aus 256 Bewertungen</div></div>
+          <div class="kpi-card"><div class="kpi-label">5-Sterne Bewertungen</div><div class="kpi-val">89%</div><div class="kpi-delta up">228 von 256</div></div>
+        </div>
+        <div class="dash-table-wrap" style="padding:1.5rem">
+          <div style="color:white;font-weight:700;margin-bottom:1.25rem">Neueste Bewertungen</div>
+          <div class="earnings-item" style="flex-direction:column;align-items:flex-start;gap:.5rem"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:white;font-weight:600">Maria S. – Morning Vibes Tasse</span><span style="color:#f59e0b">★★★★★</span></div><span style="color:#888;font-size:.85rem">"Super Qualität! Die Tasse ist genau wie auf dem Bild. Sehr schnelle Lieferung."</span></div>
+          <div class="earnings-item" style="flex-direction:column;align-items:flex-start;gap:.5rem"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:white;font-weight:600">Thomas K. – Oversized Hoodie</span><span style="color:#f59e0b">★★★★★</span></div><span style="color:#888;font-size:.85rem">"Mega Material, sitzt perfekt. Kaufe ich nochmal!"</span></div>
+          <div class="earnings-item" style="flex-direction:column;align-items:flex-start;gap:.5rem"><div style="display:flex;justify-content:space-between;width:100%"><span style="color:white;font-weight:600">Lena M. – iPhone Hülle</span><span style="color:#f59e0b">★★★★☆</span></div><span style="color:#888;font-size:.85rem">"Sehr schönes Design. Lieferung hat 4 Tage gedauert, aber Qualität top!"</span></div>
+        </div>
+      </div>
+      <!-- SETTINGS -->
+      <div class="dash-page" id="dash-settings">
+        <h2 style="color:white;font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:1.5rem">Shop-Einstellungen ⚙️</h2>
+        <div class="dash-table-wrap" style="padding:1.5rem;margin-bottom:1rem">
+          <div style="color:white;font-weight:700;margin-bottom:1.25rem">Shop-Profil</div>
+          <div class="form-field"><label style="color:#888">Shop-Name</label><input value="Mein PrintNexo Shop" style="background:#1a1a1e;border-color:#2a2a2e;color:white"></div>
+          <div class="form-field"><label style="color:#888">Shop-URL</label><input value="printnexo.de/shop/mein-shop" style="background:#1a1a1e;border-color:#2a2a2e;color:white"></div>
+          <div class="form-field"><label style="color:#888">Beschreibung</label><input placeholder="Dein Shop-Slogan…" style="background:#1a1a1e;border-color:#2a2a2e;color:white"></div>
+          <button class="btn btn-primary btn-sm" onclick="toast('✅ Einstellungen gespeichert!')">Speichern</button>
+        </div>
+        <div class="dash-table-wrap" style="padding:1.5rem">
+          <div style="color:white;font-weight:700;margin-bottom:1.25rem">Auszahlung</div>
+          <div class="form-field"><label style="color:#888">IBAN</label><input placeholder="DE…" style="background:#1a1a1e;border-color:#2a2a2e;color:white"></div>
+          <div class="form-field"><label style="color:#888">PayPal E-Mail</label><input placeholder="paypal@email.de" style="background:#1a1a1e;border-color:#2a2a2e;color:white"></div>
+          <button class="btn btn-green btn-sm" onclick="toast('✅ Bankdaten gespeichert!')">Bankdaten speichern</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CHECKOUT PAGE ═══ -->
+<div class="page" id="page-checkout">
+  <div class="checkout-page">
+    <h2 class="section-title" style="margin-bottom:2rem">Zur Kasse</h2>
+    <div class="checkout-steps">
+      <div class="step done" id="step1">✓ Warenkorb</div>
+      <div class="step active" id="step2">Lieferung</div>
+      <div class="step" id="step3">Zahlung</div>
+      <div class="step" id="step4">Bestätigung</div>
+    </div>
+    <div class="checkout-grid">
+      <div>
+        <div id="checkoutDelivery">
+          <div class="checkout-form"><h3>📦 Lieferadresse</h3>
+            <div class="form-row">
+              <div class="form-field"><label>Vorname</label><input placeholder="Max"></div>
+              <div class="form-field"><label>Nachname</label><input placeholder="Mustermann"></div>
+            </div>
+            <div class="form-field"><label>E-Mail</label><input type="email" placeholder="max@email.de"></div>
+            <div class="form-field"><label>Straße & Hausnummer</label><input placeholder="Musterstraße 1"></div>
+            <div class="form-row">
+              <div class="form-field"><label>PLZ</label><input placeholder="12345"></div>
+              <div class="form-field"><label>Stadt</label><input placeholder="Berlin"></div>
+            </div>
+            <div class="form-field"><label>Land</label><select><option>Deutschland</option><option>Österreich</option><option>Schweiz</option></select></div>
+            <button class="btn btn-primary" onclick="goToPayment()">Weiter zur Zahlung →</button>
+          </div>
+        </div>
+        <div id="checkoutPayment" style="display:none">
+          <div class="checkout-form">
+            <h3>🏦 Bezahlung per Banküberweisung</h3>
+
+            <!-- INFO BOX -->
+            <div style="background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;">
+              <div style="font-size:.85rem;color:#0369a1;line-height:1.7;">
+                📌 <strong>So funktioniert es:</strong><br>
+                Überweise den Gesamtbetrag an folgende Bankverbindung.<br>
+                Deine Bestellung wird nach Zahlungseingang (1–2 Werktage) bearbeitet.
+              </div>
+            </div>
+
+            <!-- IBAN CARD -->
+            <div style="background:linear-gradient(135deg,#0D0D0F 0%,#1a1a2e 100%);border-radius:16px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;">
+              <!-- Deko -->
+              <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,77,28,.15);"></div>
+              <div style="position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(28,59,255,.1);"></div>
+
+              <div style="font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;">Kontoinhaber</div>
+              <div style="font-size:1.1rem;font-weight:700;color:white;margin-bottom:1.25rem;">PrintNexo</div>
+
+              <div style="font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;">IBAN</div>
+              <div style="font-size:1.3rem;font-weight:900;color:white;letter-spacing:.12em;font-family:'Space Grotesk',monospace;margin-bottom:.4rem;" id="ibanDisplay">
+                BE79 7390 2540 7533
+              </div>
+              <button onclick="copyIBAN()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:.35rem .85rem;border-radius:100px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;margin-bottom:1.25rem;transition:all .2s;" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+                📋 IBAN kopieren
+              </button>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:1.25rem;">
+                <div>
+                  <div style="font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;">BIC / SWIFT</div>
+                  <div style="font-size:.9rem;font-weight:700;color:white;">KREDBEBB</div>
+                </div>
+                <div>
+                  <div style="font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;">Bank</div>
+                  <div style="font-size:.9rem;font-weight:700;color:white;">KBC Bank</div>
+                </div>
+                <div>
+                  <div style="font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;">Land</div>
+                  <div style="font-size:.9rem;font-weight:700;color:white;">🇧🇪 Belgien</div>
+                </div>
+                <div>
+                  <div style="font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;">Währung</div>
+                  <div style="font-size:.9rem;font-weight:700;color:white;">EUR €</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- VERWENDUNGSZWECK -->
+            <div style="background:#fefce8;border:1.5px solid #fde68a;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;">
+              <div style="font-weight:700;font-size:.9rem;margin-bottom:.5rem;">⚠️ Wichtig – Verwendungszweck:</div>
+              <div style="background:white;border:1px solid #fde68a;border-radius:8px;padding:.75rem;font-family:monospace;font-size:.9rem;font-weight:700;color:#0D0D0F;display:flex;align-items:center;justify-content:space-between;">
+                <span id="purposeCode">NEXO-<span id="orderNum">10848</span></span>
+                <button onclick="copyPurpose()" style="background:#fde68a;border:none;border-radius:6px;padding:.3rem .7rem;font-size:.72rem;font-weight:700;cursor:pointer;">📋 Kopieren</button>
+              </div>
+              <div style="font-size:.78rem;color:#92400e;margin-top:.5rem;">
+                Bitte gib diesen Code als Verwendungszweck an, damit wir deine Zahlung zuordnen können.
+              </div>
+            </div>
+
+            <!-- SECURITY -->
+            <div style="display:flex;align-items:center;gap:.75rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:1rem;margin-bottom:1.25rem;">
+              <span style="font-size:1.4rem;">🔒</span>
+              <div style="font-size:.8rem;color:#166534;">
+                <strong>Sichere Banküberweisung</strong><br>
+                Keine Kreditkarte nötig · Keine Gebühren · SEPA-Standard
+              </div>
+            </div>
+
+            <!-- EMAIL FIELD -->
+            <div class="form-field" style="margin-bottom:1.25rem;">
+              <label>Deine E-Mail (für Bestellbestätigung)</label>
+              <input type="email" id="confirmEmail" placeholder="deine@email.de">
+            </div>
+
+            <!-- CONFIRM BUTTON -->
+            <button onclick="confirmBankTransfer()" style="width:100%;padding:1rem;background:#0DBD70;color:white;border:none;border-radius:10px;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;justify-content:center;gap:.75rem;transition:all .2s;" onmouseover="this.style.background='#09a85e'" onmouseout="this.style.background='#0DBD70'">
+              ✅ Bestellung bestätigen & Überweisung vornehmen
+            </button>
+            <div style="text-align:center;font-size:.75rem;color:#94a3b8;margin-top:.75rem;">
+              Deine Bestellung wird nach Zahlungseingang (1–2 Werktage) bearbeitet.<br>
+              30 Tage kostenlose Rückgabe · Käuferschutz inklusive
+            </div>
+          </div>
+        </div>        </div>
+      </div>
+      <div class="order-summary-card">
+        <h3>Bestellübersicht</h3>
+        <div id="checkoutSummaryItems"></div>
+        <hr class="summary-divider">
+        <div class="summary-item"><span>Versand</span><span style="color:var(--success)">Kostenlos</span></div>
+        <div class="summary-item"><span>MwSt. (19%)</span><span id="summaryTax">€0,00</span></div>
+        <hr class="summary-divider">
+        <div class="summary-total"><span>Gesamt</span><span id="summaryTotal">€0,00</span></div>
+        <div style="margin-top:1.5rem;padding:1rem;background:#f0fdf4;border-radius:8px;font-size:.82rem;color:#166534">✅ 30 Tage kostenlose Rückgabe<br>🚚 Lieferung in 3–5 Werktagen<br>🔒 Käuferschutz inklusive</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SUCCESS PAGE ═══ -->
+<div class="page" id="page-success">
+  <div class="success-page">
+    <div>
+      <span class="success-icon">🎉</span>
+      <h2>Bestellung erfolgreich!</h2>
+      <p>Vielen Dank für deine Bestellung. Du erhältst in Kürze eine Bestätigungs-E-Mail mit deiner Tracking-Nummer.</p>
+      <p style="font-size:.85rem;color:#aaa;margin-bottom:2rem">Bestellnummer: <strong style="color:var(--ink)">#PV-10848</strong></p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary btn-lg" onclick="showPage('marktplatz')">Weiter einkaufen</button>
+        <button class="btn btn-ghost btn-lg" onclick="showPage('dashboard')">Bestellung verfolgen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('authModal').classList.remove('open')">✕</button>
+    <h2>PrintNexo</h2>
+    <p id="modalDesc">Melde dich an und starte deinen Shop.</p>
+    <div class="tabs">
+      <button class="tab-btn active" id="tabLogin" onclick="switchTab('login')">Anmelden</button>
+      <button class="tab-btn" id="tabRegister" onclick="switchTab('register')">Registrieren</button>
+    </div>
+    <div id="loginForm">
+      <div class="form-field"><label>E-Mail</label><input type="email" placeholder="deine@email.de"></div>
+      <div class="form-field"><label>Passwort</label><input type="password" placeholder="••••••••"></div>
+      <button class="btn btn-primary btn-block" style="margin-bottom:.75rem" onclick="handleAuth()">Anmelden</button>
+      <div class="form-divider"><span>oder</span></div>
+      <div class="social-login">
+        <button class="social-btn" onclick="handleAuth()">🇬 Google</button>
+        <button class="social-btn" onclick="handleAuth()">🅿️ PayPal</button>
+        <button class="social-btn" onclick="handleAuth()">🍎 Apple</button>
+      </div>
+    </div>
+    <div id="registerForm" style="display:none">
+      <div class="form-field"><label>Name</label><input placeholder="Max Mustermann"></div>
+      <div class="form-field"><label>E-Mail</label><input type="email" placeholder="deine@email.de"></div>
+      <div class="form-field"><label>Passwort</label><input type="password" placeholder="Mindestens 8 Zeichen"></div>
+      <button class="btn btn-primary btn-block" style="margin-bottom:.75rem" onclick="handleAuth()">Konto erstellen & Shop eröffnen</button>
+      <div class="form-divider"><span>oder</span></div>
+      <div class="social-login">
+        <button class="social-btn" onclick="handleAuth()">🇬 Google</button>
+        <button class="social-btn" onclick="handleAuth()">🅿️ PayPal</button>
+        <button class="social-btn" onclick="handleAuth()">🍎 Apple</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KI MODAL -->
+<div class="modal-overlay ki-modal" id="kiModal" onclick="closeKIOutside(event)">
+  <div class="modal" style="max-width:520px">
+    <button class="modal-close" onclick="document.getElementById('kiModal').classList.remove('open')">✕</button>
+    <h2>✨ KI-Design Generator</h2>
+    <p>Beschreibe dein Wunsch-Design und die KI erstellt es für dich.</p>
+    <div class="form-field"><label>Deine Beschreibung</label><input type="text" id="kiPrompt" placeholder="z.B. Minimalistisches Berg-Design mit Sonnenuntergang in Orange…"></div>
+    <div style="display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap">
+      <button class="btn btn-sm btn-ghost" onclick="setKIPrompt('Retro Sonnenuntergang mit Bergen')">🌄 Retro Berg</button>
+      <button class="btn btn-sm btn-ghost" onclick="setKIPrompt('Minimalistische Blumen Illustration')">🌸 Blumen</button>
+      <button class="btn btn-sm btn-ghost" onclick="setKIPrompt('Streetwear typografie bold')">💪 Streetwear</button>
+      <button class="btn btn-sm btn-ghost" onclick="setKIPrompt('Vintage Kaffee Illustration')">☕ Vintage</button>
+    </div>
+    <button class="btn btn-purple btn-block" onclick="generateKI()">✨ Design generieren</button>
+    <div class="ki-output" id="kiOutput" style="display:none"></div>
+    <button class="btn btn-primary btn-block" id="kiApplyBtn" style="display:none;margin-top:.75rem" onclick="applyKIDesign()">✅ Design übernehmen</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toastMsg">Aktion erfolgreich!</span></div>
+
+<script>
+// ── PRODUCTS DATA ──
+const products = [
+  {id:1,name:'Morning Vibes Tasse',creator:'@MugMaster',price:19.99,emoji:'☕',bg:'#fef3c7',cat:'Haushalt',badge:'NEU',stars:5,reviews:124},
+  {id:2,name:'Oversized Hoodie "Minimal Lines"',creator:'@UrbanPrints',price:44.99,emoji:'👕',bg:'#ede9fe',cat:'Textilien',badge:'BESTSELLER',stars:5,reviews:389},
+  {id:3,name:'Kunstdruck A3 "Botanica"',creator:'@ArtByLena',price:29.99,emoji:'🖼️',bg:'#dcfce7',cat:'Haushalt',badge:'',stars:4,reviews:67},
+  {id:4,name:'iPhone Hülle "Galaxy Pattern"',creator:'@TechStyle',price:24.99,emoji:'📱',bg:'#fee2e2',cat:'Elektronik',badge:'-20%',stars:5,reviews:211},
+  {id:5,name:'Kissen "Dino-Gang"',creator:'@KidsWorld',price:34.99,emoji:'🧸',bg:'#e0f2fe',cat:'Haushalt',badge:'',stars:5,reviews:92},
+  {id:6,name:'Gravierter Schmuck "Infinity"',creator:'@GoldenEdge',price:49.99,emoji:'💍',bg:'#fce7f3',cat:'Schmuck',badge:'',stars:5,reviews:158},
+  {id:7,name:'Canvas Tote Bag "City"',creator:'@StreetBag',price:22.99,emoji:'🎒',bg:'#f3f4f6',cat:'Textilien',badge:'',stars:4,reviews:44},
+  {id:8,name:'Duftkerze "Wooden Dreams"',creator:'@HomeScent',price:18.99,emoji:'🕯️',bg:'#fef9c3',cat:'Haushalt',badge:'TRENDING',stars:5,reviews:302},
+  {id:9,name:'Samsung Hülle "Neon Wave"',creator:'@TechStyle',price:21.99,emoji:'📱',bg:'#f0fdf4',cat:'Elektronik',badge:'',stars:4,reviews:55},
+  {id:10,name:'Sport-Armband "Power"',creator:'@FitGear',price:14.99,emoji:'💪',bg:'#fff7ed',cat:'Sport',badge:'',stars:5,reviews:88},
+  {id:11,name:'Seiden-Schal "Elegance"',creator:'@LuxStyle',price:39.99,emoji:'🧣',bg:'#fdf4ff',cat:'Textilien',badge:'',stars:5,reviews:31},
+  {id:12,name:'Laptop Skin "Marble"',creator:'@TechStyle',price:17.99,emoji:'💻',bg:'#f8fafc',cat:'Elektronik',badge:'NEU',stars:4,reviews:19},
+];
+
+// ── CART ──
+let cart = [];
+function addToCart(id) {
+  const p = products.find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p,qty:1});
+  updateCartUI();
+  toast('🛒 '+p.name+' in den Warenkorb gelegt!');
+}
+function removeFromCart(id) {
+  cart = cart.filter(x=>x.id!==id);
+  updateCartUI();
+}
+function changeQty(id, delta) {
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) removeFromCart(id);
+  else updateCartUI();
+}
+function updateCartUI() {
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const tax = total*0.19;
+  document.getElementById('cartBadge').textContent = cart.reduce((s,i)=>s+i.qty,0);
+  const itemsEl = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  if(cart.length===0){
+    itemsEl.innerHTML='<div class="cart-empty"><span class="cart-empty-icon">🛍️</span><p>Dein Warenkorb ist leer.</p></div>';
+    footer.style.display='none'; return;
+  }
+  footer.style.display='block';
+  itemsEl.innerHTML = cart.map(i=>`
+    <div class="cart-item">
+      <div class="cart-item-img" style="background:${i.bg}">${i.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${i.name}</div>
+        <div class="cart-item-price">€${(i.price*i.qty).toFixed(2)}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+          <span style="font-size:.85rem;font-weight:600">${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${i.id})">🗑️</button>
+    </div>`).join('');
+  document.getElementById('cartSubtotal').textContent='€'+total.toFixed(2);
+  document.getElementById('cartTax').textContent='€'+tax.toFixed(2);
+  document.getElementById('cartTotal').textContent='€'+(total+tax).toFixed(2);
+  // update checkout summary
+  document.getElementById('checkoutSummaryItems').innerHTML = cart.map(i=>`<div class="summary-item"><span>${i.emoji} ${i.name} ×${i.qty}</span><span>€${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
+  document.getElementById('summaryTax').textContent='€'+tax.toFixed(2);
+  document.getElementById('summaryTotal').textContent='€'+(total+tax).toFixed(2);
+}
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+function goCheckout() {
+  if(cart.length===0){toast('⚠️ Dein Warenkorb ist leer!');return;}
+  toggleCart();
+  showPage('checkout');
+  document.getElementById('checkoutDelivery').style.display='block';
+  document.getElementById('checkoutPayment').style.display='none';
+  document.getElementById('step2').className='step active';
+  document.getElementById('step3').className='step';
+}
+
+// ── PAGES ──
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='marktplatz') renderProducts('Alle');
+  if(id==='preise') {}
+}
+
+// ── PRODUCTS ──
+let currentCat = 'Alle';
+function filterCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.filter-chip').forEach(c=>{
+    c.classList.toggle('active', c.textContent.includes(cat) || (cat==='Alle' && c.textContent==='Alle'));
+  });
+  renderProducts(cat);
+}
+function filterProducts() {
+  const q = document.getElementById('mpSearch').value.toLowerCase();
+  renderProducts(currentCat, q);
+}
+function renderProducts(cat, q='') {
+  let filtered = products;
+  if(cat && cat!=='Alle') filtered = filtered.filter(p=>p.cat===cat);
+  if(q) filtered = filtered.filter(p=>p.name.toLowerCase().includes(q)||p.creator.toLowerCase().includes(q));
+  document.getElementById('productGrid').innerHTML = filtered.map(p=>`
+    <div class="product-card">
+      <div class="product-img" style="background:${p.bg}">
+        ${p.emoji}
+        ${p.badge?`<div class="product-badge">${p.badge}</div>`:''}
+      </div>
+      <div class="product-info">
+        <div class="product-creator">${p.creator}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">€${p.price.toFixed(2)}</div>
+        <div class="product-stars">${'★'.repeat(p.stars)}${'☆'.repeat(5-p.stars)} (${p.reviews})</div>
+      </div>
+      <div class="product-actions">
+        <button class="btn btn-primary btn-sm" style="flex:1" onclick="addToCart(${p.id})">🛒 In den Warenkorb</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('Zur Wunschliste hinzugefügt! ❤️')">♡</button>
+      </div>
+    </div>`).join('');
+}
+
+// ── CHECKOUT ──
+// ── BANK TRANSFER ──
+const IBAN = 'BE79739025407533';
+const IBAN_FORMATTED = 'BE79 7390 2540 7533';
+const BIC = 'KREDBEBB';
+
+function copyIBAN() {
+  navigator.clipboard.writeText(IBAN).then(() => {
+    toast('✅ IBAN kopiert: ' + IBAN_FORMATTED);
+  }).catch(() => {
+    toast('IBAN: ' + IBAN_FORMATTED);
+  });
+}
+
+function copyPurpose() {
+  const code = document.getElementById('purposeCode').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    toast('✅ Verwendungszweck kopiert: ' + code);
+  }).catch(() => {
+    toast('Verwendungszweck: ' + code);
+  });
+}
+
+function confirmBankTransfer() {
+  const email = document.getElementById('confirmEmail') ? document.getElementById('confirmEmail').value : '';
+  if(!email) { toast('⚠️ Bitte gib deine E-Mail-Adresse ein!'); return; }
+
+  const btn = event.target;
+  btn.textContent = '⏳ Bestellung wird bestätigt…';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    cart = [];
+    updateCartUI();
+    showPage('success');
+    toast('✅ Bestellung bestätigt! Überweise bitte an: ' + IBAN_FORMATTED);
+  }, 1500);
+}
+
+function goToPayment() {
+  document.getElementById('checkoutDelivery').style.display='none';
+  document.getElementById('checkoutPayment').style.display='block';
+  document.getElementById('step2').className='step done';
+  document.getElementById('step3').className='step active';
+  // Generate order number
+  const num = Math.floor(10000 + Math.random()*90000);
+  if(document.getElementById('orderNum')) document.getElementById('orderNum').textContent = num;
+}
+
+function placeOrder() { confirmBankTransfer(); }
+function selectPayment(el) {}
+function switchPayMethod(m,el) {}
+function processPayment() { confirmBankTransfer(); }
+
+// ── DESIGNER ──
+let currentFont = "'Fraunces', serif";
+function updateDesign() {
+  const text = document.getElementById('designText').value || 'MY\nDESIGN';
+  document.getElementById('canvasText').innerHTML = text.replace(/\n/g,'<br>');
+}
+function setFont(font, el) {
+  currentFont = font;
+  document.getElementById('canvasText').style.fontFamily = font;
+  document.querySelectorAll('.d-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+}
+function setProductColor(color, el) {
+  document.getElementById('canvasProduct').style.background = color;
+  document.querySelectorAll('.cp-swatch').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+}
+function setTextColor(color) {
+  document.getElementById('canvasText').style.color = color;
+}
+function setTextSize(v) {
+  document.getElementById('canvasText').style.fontSize = v+'rem';
+  document.getElementById('sizeVal').textContent = v;
+}
+function setOpacity(v) {
+  document.getElementById('canvasText').style.opacity = v/100;
+}
+function applyTemplate(text) {
+  document.getElementById('designText').value = text;
+  document.getElementById('canvasText').innerHTML = text.replace(/\n/g,'<br>');
+}
+function selectProduct(type, el) {
+  document.querySelectorAll('.prod-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  const shapes = {
+    tshirt:'polygon(20% 0%,80% 0%,100% 20%,85% 22%,85% 100%,15% 100%,15% 22%,0% 20%)',
+    hoodie:'polygon(15% 0%,85% 0%,100% 15%,92% 18%,92% 100%,8% 100%,8% 18%,0% 15%)',
+    tasse:'polygon(10% 10%,90% 10%,90% 90%,10% 90%)',
+    huelle:'polygon(15% 0%,85% 0%,100% 8%,100% 92%,85% 100%,15% 100%,0% 92%,0% 8%)',
+    kissen:'polygon(0% 0%,100% 0%,100% 100%,0% 100%)',
+    poster:'polygon(5% 0%,95% 0%,100% 5%,100% 95%,95% 100%,5% 100%,0% 95%,0% 5%)'
+  };
+  document.getElementById('canvasProduct').style.clipPath = shapes[type]||shapes.tshirt;
+}
+function saveDesign() { toast('💾 Design gespeichert!'); }
+function publishDesign() {
+  const price = document.getElementById('productPrice').value;
+  if(!price) { toast('⚠️ Bitte zuerst einen Preis festlegen!'); return; }
+  toast('🚀 Produkt veröffentlicht! Es ist jetzt live im Marktplatz.');
+}
+
+// ── KI GENERATOR ──
+function openKI() { document.getElementById('kiModal').classList.add('open'); }
+function closeKIOutside(e) { if(e.target.id==='kiModal') document.getElementById('kiModal').classList.remove('open'); }
+function setKIPrompt(text) { document.getElementById('kiPrompt').value = text; }
+const kiDesigns = {
+  'berg':'PEAK\nADVENTURE','blumen':'BLOOM\nWITH LOVE','streetwear':'NO\nLIMITS','kaffee':'GOOD\nMORNING',
+  'default':['WILD\n& FREE','STAY\nTRUE','DREAM\nBIG','PURE\nENERGY','RISE\n& SHINE']
+};
+function generateKI() {
+  const prompt = document.getElementById('kiPrompt').value;
+  if(!prompt){toast('⚠️ Bitte beschreibe dein Design!');return;}
+  const out = document.getElementById('kiOutput');
+  const applyBtn = document.getElementById('kiApplyBtn');
+  out.style.display='block';
+  applyBtn.style.display='none';
+  out.innerHTML='<div class="ki-loading">✨ KI generiert dein Design<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span></div>';
+  setTimeout(()=>{
+    const lower = prompt.toLowerCase();
+    let design;
+    if(lower.includes('berg')||lower.includes('mountain')) design='PEAK\nADVENTURE';
+    else if(lower.includes('blum')||lower.includes('flower')) design='BLOOM\nWITH LOVE';
+    else if(lower.includes('kaffee')||lower.includes('coffee')) design='GOOD\nMORNING';
+    else if(lower.includes('retro')) design='RETRO\nVIBES';
+    else if(lower.includes('vintage')) design='VINTAGE\nSOUL';
+    else if(lower.includes('sport')||lower.includes('gym')) design='GRIND\n& GROW';
+    else {const arr=kiDesigns.default; design=arr[Math.floor(Math.random()*arr.length)];}
+    out.innerHTML=`<strong>✅ Design generiert:</strong><br><br><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;text-align:center;padding:1rem;background:var(--ink);color:white;border-radius:8px;">${design.replace(/\n/g,'<br>')}</div><br><span style="font-size:.82rem;color:var(--mid)">Basierend auf: "${prompt}"</span>`;
+    applyBtn.style.display='block';
+    applyBtn.dataset.design = design;
+  },2000);
+}
+function applyKIDesign() {
+  const design = document.getElementById('kiApplyBtn').dataset.design;
+  document.getElementById('kiModal').classList.remove('open');
+  document.getElementById('designText').value = design;
+  document.getElementById('canvasText').innerHTML = design.replace(/\n/g,'<br>');
+  toast('✅ KI-Design übernommen!');
+}
+
+// ── DASHBOARD ──
+function showDash(id) {
+  document.querySelectorAll('.dash-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('dash-'+id).classList.add('active');
+  document.querySelectorAll('.dash-nav-item').forEach(i=>i.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ── AUTH ──
+function openModal(type) {
+  document.getElementById('authModal').classList.add('open');
+  switchTab(type);
+}
+function closeModalOutside(e) { if(e.target.id==='authModal') document.getElementById('authModal').classList.remove('open'); }
+function switchTab(tab) {
+  const isLogin = tab==='login';
+  document.getElementById('tabLogin').classList.toggle('active',isLogin);
+  document.getElementById('tabRegister').classList.toggle('active',!isLogin);
+  document.getElementById('loginForm').style.display=isLogin?'block':'none';
+  document.getElementById('registerForm').style.display=isLogin?'none':'block';
+  document.getElementById('modalDesc').textContent=isLogin?'Willkommen zurück!':'Erstelle deinen Account & starte deinen Shop.';
+}
+function handleAuth() {
+  document.getElementById('authModal').classList.remove('open');
+  toast('🎉 Willkommen bei PrintNexo! Dein Shop ist bereit.');
+  setTimeout(()=>showPage('dashboard'),1500);
+}
+function selectPlan(plan) {
+  openModal('register');
+  toast('✅ Plan ausgewählt: '+plan);
+}
+
+// ── HERO SHIRT ──
+function changeHeroShirt(color, el) {
+  document.getElementById('heroShirt').style.background=color;
+  document.querySelectorAll('.color-swatch-row .swatch').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── TOAST ──
+let toastTimer;
+function toast(msg) {
+  const el=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// Init
+renderProducts('Alle');
+</script>
+</body>
+</html>
